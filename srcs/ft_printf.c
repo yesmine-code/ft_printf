@@ -6,13 +6,13 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 22:35:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/12 19:13:28 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/13 20:06:58 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_free_struct(t_flags flags)
+int	ft_free_struct(t_flags flags, int ret)
 {
 	if (flags.flags != NULL)
 		free(flags.flags);
@@ -22,6 +22,7 @@ void	ft_free_struct(t_flags flags)
 		free(flags.precision);
 	if (flags.length != NULL)
 		free(flags.length);
+	return (ret);
 }
 
 int		ft_read_star_parameter(char *flags, va_list list)
@@ -90,7 +91,7 @@ char		*read_precision(t_flags flags, char *origine, int star_value)
 
 	if (star_value != -1)
 		width = star_value;
-	else if (flags.precision != NULL)
+	else if (ft_strlen(flags.precision) != 0)
 		width = ft_atoi(flags.precision);
 	else
 		width = -1;
@@ -111,17 +112,38 @@ char		*read_precision(t_flags flags, char *origine, int star_value)
 	return (result);
 }
 
+char		*read_length_and_flags(t_flags flags, char *origine, int star_width)
+{
+	char	*result;
+	
+	if (star_width == -1 && ft_strlen(flags.precision) == 0)
+		star_width = ft_atoi(flags.width);
+	if (ft_strchr(flags.flags, '-'))
+		result = ft_format(origine, 0, star_width, ' ');
+	else if (ft_strchr(flags.flags, '0') && ft_strlen(flags.precision) == 0 && 
+		       ft_strchr("diuoxX", flags.specifier))	
+		result = ft_format(origine, 1, star_width, '0');
+	else if (ft_strlen(flags.flags) == 0)
+		result = ft_format(origine, 1, star_width, ' ');
+	else
+		result = ft_strdup(origine);
+	return (result);
+}
+
 int		ft_printf(const char *format, ...)
 {
 	int		i;
+	int		compteur;
 	t_flags	flags;
 	va_list	list;
 	int		star_width_arg;
 	int		star_precision_arg;
 	char	*specifier;
 	char	*precision;
+	char	*result;
 
 	i = 0;
+	compteur = 0;
 	va_start(list, format);
 	while (format[i] != '\0')
 	{
@@ -132,6 +154,7 @@ int		ft_printf(const char *format, ...)
 			{
 				write(1, "%", 1);
 				i++;
+				compteur++;
 			}
 			else
 			{
@@ -139,22 +162,40 @@ int		ft_printf(const char *format, ...)
 				star_width_arg = ft_read_star_parameter(flags.width, list);
 				star_precision_arg = ft_read_star_parameter(flags.precision, list);
 				specifier = read_specifier(flags, list);
-				precision = read_precision(flags, specifier, star_precision_arg);
-				ft_putstr(precision);
-				i++;
-				free(specifier);
-				free(precision);
-				ft_free_struct(flags);
+				if (specifier != NULL)
+				{
+					precision = read_precision(flags, specifier, star_precision_arg);
+					if (precision != NULL)
+					{
+						result = read_length_and_flags(flags, precision, star_width_arg);
+						if (result != NULL)
+						{
+							ft_putstr(result);
+							compteur += ft_strlen(result);
+							free(result);
+						}
+						else
+							return (ft_free_struct(flags, -1));
+						i++;
+						free(precision);
+					}
+					else
+						return (ft_free_struct(flags, -1));
+					free(specifier);
+				}
+				else
+					return (ft_free_struct(flags, -1));
 			}
 		}
 		else
 		{
 			write(1, &format[i], 1);
 			i++;
+			compteur++;
 		}
 	}
 	va_end(list);
-	return (0);
+	return (ft_free_struct(flags, compteur));
 }
 
 int main()
@@ -168,7 +209,11 @@ int main()
 	//printf("\n%%yesmine\n");
 //	ft_printf("\n%%yesmine\n");
 	//ft_printf("yesmine %*dbesbes %xyyyy%X",3, 5, -15, -200);
-	printf("%%d:%d.\t .5s:%.5s.\t .10o:%.10o.\t %%d:%d\n", 1, "yesmine", 30, 1);
-	ft_printf("%%d:%d.\t .5s:%.5s.\t .10o:%.10o.\t %%d:%d\n", 1, "yesmine", 30, 1);
+	int length1 = printf("%*d.\n", 10, 250);
+	int length2 = ft_printf("%*d.\n", 10, 250);
+	printf("length 1 = %d\t, length 2 = %d\n", length1, length2);
+	length1 = printf("%010d\t -%10s-\t -%-10s-\n", 23, "medos", "medos");
+	length2 = ft_printf("%010d\t -%10s-\t -%-10s-\n", 23, "medos", "medos");
+	printf("length 1 = %d\t, length 2 = %d\n", length1, length2);
 	return (0);
 }
