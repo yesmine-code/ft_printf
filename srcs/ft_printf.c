@@ -6,13 +6,13 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 22:35:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/14 13:16:59 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/14 15:05:22 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_free_struct(t_flags flags, int ret)
+int		ft_free_struct(t_flags flags, int ret)
 {
 	if (flags.flags != NULL)
 		free(flags.flags);
@@ -25,17 +25,60 @@ int	ft_free_struct(t_flags flags, int ret)
 	return (ret);
 }
 
+int		ft_parse_read_and_put(const char *format, t_flags *flags, int *i, va_list list)
+{
+	int     star_width_arg;
+	int     star_precision_arg;
+	char    *specifier;
+	char    *precision;
+	char    *result;
+	int		compteur;
+
+	compteur = 0;
+	*flags = ft_parse(format, i);
+	star_width_arg = ft_read_star_parameter(flags->width, list);
+	star_precision_arg = ft_read_star_parameter(flags->precision, list);
+	specifier = read_specifier(*flags, list);
+	if (specifier != NULL)
+	{
+		precision = read_precision(*flags, specifier, star_precision_arg);
+		free(specifier);
+		if (precision != NULL)
+		{
+			result = read_length_and_flags(*flags, precision, star_width_arg);
+			*i = *i + 1;
+			free(precision);
+			if (result != NULL)
+			{
+				ft_putstr(result);
+				compteur += ft_strlen(result);
+				free(result);
+				return (compteur);
+			}
+			else
+				return (-1);
+		}
+		else
+			return (-1);
+	}
+	else
+		return (-1);
+}
+
+void	ft_write(char car, int *i, int *compteur)
+{
+	write(1, &car,1);
+	*i = *i + 1;
+	*compteur = *compteur + 1;
+}
+
 int		ft_printf(const char *format, ...)
 {
 	int		i;
 	int		compteur;
 	t_flags	flags;
 	va_list	list;
-	int		star_width_arg;
-	int		star_precision_arg;
-	char	*specifier;
-	char	*precision;
-	char	*result;
+	int		ret;
 
 	i = 0;
 	compteur = 0;
@@ -44,50 +87,18 @@ int		ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			i++;
-			if (format[i] == '%')
-			{
-				write(1, "%", 1);
-				i++;
-				compteur++;
-			}
+			if (format[++i] == '%')
+				ft_write('%', &i, &compteur);
 			else
 			{
-				flags = ft_parse(format, &i);
-				star_width_arg = ft_read_star_parameter(flags.width, list);
-				star_precision_arg = ft_read_star_parameter(flags.precision, list);
-				specifier = read_specifier(flags, list);
-				if (specifier != NULL)
-				{
-					precision = read_precision(flags, specifier, star_precision_arg);
-					if (precision != NULL)
-					{
-						result = read_length_and_flags(flags, precision, star_width_arg);
-						if (result != NULL)
-						{
-							ft_putstr(result);
-							compteur += ft_strlen(result);
-							free(result);
-						}
-						else
-							return (ft_free_struct(flags, -1));
-						i++;
-						free(precision);
-					}
-					else
-						return (ft_free_struct(flags, -1));
-					free(specifier);
-				}
-				else
+				ret = ft_parse_read_and_put(format, &flags, &i, list);
+				if (ret == -1)
 					return (ft_free_struct(flags, -1));
+				compteur = ret + compteur;
 			}
 		}
 		else
-		{
-			write(1, &format[i], 1);
-			i++;
-			compteur++;
-		}
+			ft_write(format[i], &i, &compteur);
 	}
 	va_end(list);
 	return (ft_free_struct(flags, compteur));
