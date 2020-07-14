@@ -6,16 +6,13 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:38:36 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/08 19:14:38 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/14 12:34:29 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-//#include <stdio.h>
-//#include <unistd.h>
-//#include <stdlib.h>
 
-int	ft_isdigit(int c)
+int		ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
@@ -23,7 +20,7 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-int	ft_strlen(const char *str)
+int		ft_strlen(const char *str)
 {
 	const char	*ptr;
 	int			i;
@@ -90,18 +87,4 @@ char	*ft_substr(char const *s, unsigned int start, int len)
 	}
 	ptr[i] = '\0';
 	return (ptr);
-}
-
-void	ft_putstr(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (s == NULL)
-		return ;
-	while (s[i] != '\0')
-	{
-		write(1, &s[i], 1);
-		i++;
-	}
 }

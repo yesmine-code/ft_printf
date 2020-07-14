@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 20:03:30 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/12 18:48:50 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/14 12:57:39 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 char	*get_flags(const char *format, int *i)
 {
-	char	tab[6] = {'-', '+', ' ', '#', '0', 0};
 	int		start;
 	int		offset;
 
 	offset = 0;
 	start = (int)*i;
-	while (ft_strchr(tab, format[*i + offset]))
+	while (ft_strchr("-+ #0", format[*i + offset]))
 		offset++;
 	*i = *i + offset;
-	return (ft_substr(format, start, offset));	
+	return (ft_substr(format, start, offset));
 }
 
 char	*get_width(const char *format, int *i)
@@ -33,7 +32,6 @@ char	*get_width(const char *format, int *i)
 
 	offset = 0;
 	start = (int)*i;
-	
 	while (ft_isdigit(format[*i + offset]) == 1 || format[*i + offset] == '*')
 		offset++;
 	*i = *i + offset;
@@ -42,13 +40,12 @@ char	*get_width(const char *format, int *i)
 
 char	*get_length(const char *format, int *i)
 {
-	char	tab[4] = {'h', 'l', 'L', 0};
 	int		start;
 	int		offset;
 
 	offset = 0;
 	start = (int)*i;
-	while (ft_strchr(tab, format[*i + offset]))
+	while (ft_strchr("hlL", format[*i + offset]))
 		offset++;
 	*i = *i + offset;
 	return (ft_substr(format, start, offset));
@@ -56,20 +53,13 @@ char	*get_length(const char *format, int *i)
 
 char	get_specifier(const char *format, int *i)
 {
-	char	tab[17] = {'c', 'd', 'i', 'e', 'E', 'f', 'g',
-   		'G', 'o', 's', 'u', 'x', 'X', 'p', 'n', '%', 0};
-	if (ft_strchr(tab, format[*i]))
+	if (ft_strchr("cdieEfgGosuxXpn", format[*i]))
 		return (format[*i++]);
 	return (0);
 }
 
-t_flags	ft_parse(const char *format, int	*i)
+t_flags	ft_parse(const char *format, int *i)
 {
-	char	*flags;
-	char	*width;
-	char	*precision;
-	char	*length;
-	char	specifier;
 	t_flags	f;
 
 	f.flags = get_flags(format, i);
@@ -85,20 +75,3 @@ t_flags	ft_parse(const char *format, int	*i)
 	f.specifier = get_specifier(format, i);
 	return (f);
 }
-/*
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-int main()
-{
-	char	*format;
-	int		i;
-	t_flags	f;
-
-	i = 0;
-	format = "-4.*d";
-	f = ft_parse(format, &i);
-	printf("flags : %s\n width : %s\n precision : %s\n length : %s\n specifier : %c\n", f.flags, f.width, f.precision, f.length, f.specifier);
-	return (0);
-}*/
