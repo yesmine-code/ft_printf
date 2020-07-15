@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 22:35:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/15 18:23:29 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/15 19:43:49 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ void	ft_write(char car, int *i, int *compteur)
 	*compteur = *compteur + 1;
 }
 
-void	ft_init(int *i, int *compteur)
+void	ft_init(int *i, int *compteur, t_flags *flags)
 {
 	*i = 0;
 	*compteur = 0;
+	flags->flags = NULL;
+	flags->width = NULL;
+	flags->precision = NULL;
+	flags->length = NULL;
 }
 
 int		ft_printf(const char *format, ...)
@@ -46,7 +50,7 @@ int		ft_printf(const char *format, ...)
 	va_list	list;
 	int		ret;
 
-	ft_init(&i, &compteur);
+	ft_init(&i, &compteur, &flags);
 	va_start(list, format);
 	while (format[i] != '\0' && compteur >= 0)
 	{

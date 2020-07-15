@@ -2,15 +2,15 @@
 
 int main()
 {
-//	ft_printf("hello");
+	ft_printf("hello");
 	int a;
 	int *ptr;
 				
 	a = 10;
  //printf("\n%o , %u, %#x, %X\n", -200, -200, -200, -200);
 //ft_printf("\n%o , %u, %#x, %X\n", -200, -200, -200, -200);
-//	printf("\n%%yesmine\n");
-//	ft_printf("\n%%yesmine\n");
+	printf("\n%%yesmine\n");
+	ft_printf("\n%%yesmine\n");
 	printf("yesmine %*dbesbes %xyyyy%X\n",3, 5, -15, -200);
 	ft_printf("yesmine %*dbesbes %xyyyy%X\n",3, 5, -15, -200);
 	int length1 = printf("%*d.\n", 10, 250);
