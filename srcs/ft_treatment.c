@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:23:41 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/15 19:40:08 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/15 21:15:22 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,21 @@ int		ft_parse_read_and_put(const char *format,
 	char	*precision;
 
 	*flags = ft_parse(format, i);
-	star_width_arg = ft_read_star_parameter(flags->width, list);
-	star_precision_arg = ft_read_star_parameter(flags->precision, list);
-	specifier = read_specifier(*flags, list);
-	if (specifier != NULL)
+	if (flags->specifier != 0)
 	{
-		precision = read_precision(*flags, specifier, star_precision_arg);
-		free(specifier);
-		if (precision != NULL)
+		star_width_arg = ft_read_star_parameter(flags->width, list);
+		star_precision_arg = ft_read_star_parameter(flags->precision, list);
+		specifier = read_specifier(*flags, list);
+		if (specifier != NULL)
 		{
-			return (ft_read_precision_length_and_flag(flags,
-					precision, i, star_width_arg));
+			precision = read_precision(*flags, specifier, star_precision_arg);
+			free(specifier);
+			if (precision != NULL)
+				return (ft_read_precision_length_and_flag(flags,
+						precision, i, star_width_arg));
 		}
-		else
-			return (-1);
 	}
 	else
-		return (-1);
+		return (0);
+	return (-1);
 }

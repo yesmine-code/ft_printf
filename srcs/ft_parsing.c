@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 20:03:30 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/14 12:57:39 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/15 20:01:10 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_length(const char *format, int *i)
 
 char	get_specifier(const char *format, int *i)
 {
-	if (ft_strchr("cdieEfgGosuxXpn", format[*i]))
+	if (ft_strchr("cdieEfgGosuxXpn%", format[*i]))
 		return (format[*i++]);
 	return (0);
 }

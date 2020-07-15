@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:00:51 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/14 13:31:16 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/15 21:00:47 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ char	*read_specifier(t_flags flags, va_list list)
 		return (ft_c_specifier(list));
 	if (flags.specifier == 's')
 		return (ft_strdup(va_arg(list, char *)));
+	if (flags.specifier == '%')
+		return (ft_strdup("%"));
 	return (ft_strdup(""));
 }

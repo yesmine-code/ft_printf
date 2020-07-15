@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 22:35:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/15 19:43:49 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/15 21:17:02 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@ void	ft_init(int *i, int *compteur, t_flags *flags)
 	flags->width = NULL;
 	flags->precision = NULL;
 	flags->length = NULL;
+	flags->specifier = 0;
+}
+
+int		calcul_compteur(int ret, int compteur)
+{
+	if (ret == -1)
+		return (-1);
+	else
+		return (ret + compteur);
 }
 
 int		ft_printf(const char *format, ...)
@@ -56,13 +65,9 @@ int		ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			if (format[++i] == '%')
-				ft_write('%', &i, &compteur);
-			else
-			{
-				ret = ft_parse_read_and_put(format, &flags, &i, list);
-				compteur = (ret == -1 ? ret : ret + compteur);
-			}
+			i++;
+			ret = ft_parse_read_and_put(format, &flags, &i, list);
+			compteur = calcul_compteur(ret, compteur);
 		}
 		else
 			ft_write(format[i], &i, &compteur);
