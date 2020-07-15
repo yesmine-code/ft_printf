@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:10:29 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/14 13:27:20 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/15 18:17:03 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*read_precision(t_flags flags, char *origine, int star_value)
 	char	*result;
 	int		width;
 
+	result = NULL;
 	if (star_value != -1)
 		width = star_value;
 	else if (ft_strlen(flags.precision) != 0)

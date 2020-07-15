@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:23:41 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/14 22:10:46 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/15 18:16:23 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*ft_format(char *origine, int align, int width, char flag)
 	int		j;
 
 	i = 0;
+	result = NULL;
 	if (ft_strlen(origine) < width)
 	{
 		j = width - ft_strlen(origine);

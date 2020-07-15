@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:38:36 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/14 12:34:29 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/15 18:18:44 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*ft_substr(char const *s, unsigned int start, int len)
 
 	if (s == NULL)
 		return (NULL);
-	if (ft_strlen(s) < start)
+	if (ft_strlen(s) < (int)start)
 		return (ft_strdup(""));
 	i = 0;
 	ptr = malloc(sizeof(*ptr) * (len + 1));
