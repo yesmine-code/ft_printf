@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:23:41 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/15 18:16:23 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/15 18:24:11 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ char	*ft_format(char *origine, int align, int width, char flag)
 	if (ft_strlen(origine) < width)
 	{
 		j = width - ft_strlen(origine);
-		tmp = malloc(sizeof(char) * (j + 1));
-		if (tmp != NULL)
+		if (!(tmp = malloc(sizeof(char) * (j + 1))))
 		{
 			while (i < j)
 				tmp[i++] = flag;

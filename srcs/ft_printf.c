@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 22:35:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/14 22:06:28 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/15 18:23:29 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,3 @@ int		ft_printf(const char *format, ...)
 	va_end(list);
 	return (ft_free_struct(flags, compteur));
 }
-/*
-int main()
-{
-	int a;
-	int	*ptr;
-
-	a = 10;
-	//printf("\n%o , %u, %#x, %X\n", -200, -200, -200, -200);
-	//ft_printf("\n%o , %u, %#x, %X\n", -200, -200, -200, -200);
-	//printf("\n%%yesmine\n");
-//	ft_printf("\n%%yesmine\n");
-	//ft_printf("yesmine %*dbesbes %xyyyy%X",3, 5, -15, -200);
-	int length1 = printf("%*d.\n", 10, 250);
-	int length2 = ft_printf("%*d.\n", 10, 250);
-	printf("length 1 = %d\t, length 2 = %d\n", length1, length2);
-	length1 = printf("%010d\t -%10s-\t -%-10s-\n", 23, "medos", "medos");
-	length2 = ft_printf("%010d\t -%10s-\t -%-10s-\n", 23, "medos", "medos");
-	printf("length 1 = %d\t, length 2 = %d\n", length1, length2);
-	return (0);
-}*/
