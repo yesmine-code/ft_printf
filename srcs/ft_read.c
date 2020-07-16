@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:00:51 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/16 16:20:33 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/16 23:06:50 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ int		ft_read_star_parameter(char *flags, va_list list)
 char	*ft_p_specifier(va_list list)
 {
 	char	*tmp_specifier;
-	char	*tmp_specifier2;
+//	char	*tmp_specifier2;
 	int		*ptr;
 
 	ptr = va_arg(list, void *);
-	tmp_specifier = ft_itoa((long long)ptr, "0123456789abcdef");
-	tmp_specifier2 = ft_strjoin("0x", tmp_specifier);
-	free(tmp_specifier);
-	return (tmp_specifier2);
+	tmp_specifier = (ptr != NULL) ? ft_itoa((long long)ptr, "0123456789abcdef") : ft_strdup("0");
+//	tmp_specifier2 = ft_strjoin("0x", tmp_specifier);
+//	free(tmp_specifier);
+	return (tmp_specifier);
 }
 
 char	*ft_c_specifier(va_list list)
