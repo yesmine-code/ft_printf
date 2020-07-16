@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:00:51 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/16 11:38:04 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/16 16:20:33 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ char	*ft_c_specifier(va_list list)
 
 char	*read_specifier(t_flags flags, va_list list)
 {
+	char	*s;
+
 	if (flags.specifier == 'd' || flags.specifier == 'i')
 		return (ft_itoa(va_arg(list, int), "0123456789"));
 	if (flags.specifier == 'u')
@@ -71,7 +73,7 @@ char	*read_specifier(t_flags flags, va_list list)
 	if (flags.specifier == 'c')
 		return (ft_c_specifier(list));
 	if (flags.specifier == 's')
-		return (ft_strdup(va_arg(list, char *)));
+		return (ft_strdup((s = va_arg(list, char *)) ? s : "(null)"));
 	if (flags.specifier == '%')
 		return (ft_strdup("%"));
 	return (ft_strdup(""));

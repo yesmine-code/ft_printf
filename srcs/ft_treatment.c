@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:23:41 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/16 11:54:30 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/16 17:35:27 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,13 @@ char	*ft_format(char *origine, int align, int width, char flag)
 }
 
 int		ft_read_precision_length_and_flag(t_flags *flags,
-		char *precision, int *i, int star_width_arg)
+		char *precision, int is_neg, int star_width_arg)
 {
 	int		compteur;
 	char	*result;
 
 	compteur = 0;
-	result = read_length_and_flags(*flags, precision, star_width_arg);
-	*i = *i + 1;
+	result = read_length_and_flags(*flags, precision, star_width_arg, is_neg);
 	free(precision);
 	if (result != NULL)
 	{
@@ -65,6 +64,7 @@ int		ft_read_precision_length_and_flag(t_flags *flags,
 int		ft_parse_read_and_put(const char *format,
 		t_flags *flags, int *i, va_list list)
 {
+	int		is_neg;
 	int		star_width_arg;
 	int		star_precision_arg;
 	char	*specifier;
@@ -78,11 +78,17 @@ int		ft_parse_read_and_put(const char *format,
 		specifier = read_specifier(*flags, list);
 		if (specifier != NULL)
 		{
-			precision = read_precision(*flags, specifier, star_precision_arg);
+			is_neg = (specifier[0] == '-' && ft_strchr("di", flags->specifier) &&
+					(ft_strlen(flags->precision) > 1 ||(!ft_strchr(flags->flags, '-') &&
+					ft_strchr(flags->flags, '0')))) ? 1 : 0;
+			precision = read_precision(*flags, specifier, star_precision_arg, is_neg);
 			free(specifier);
 			if (precision != NULL)
-				return (ft_read_precision_length_and_flag(flags,
-						precision, i, star_width_arg));
+			{
+				*i = *i + 1;
+				return (ft_read_precision_length_and_flag(flags, precision,
+								is_neg, star_width_arg));
+			}
 		}
 	}
 	else

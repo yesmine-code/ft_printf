@@ -6,9 +6,9 @@ int main()
 	int *ptr;
 				
 	a = 10;
-	printf("%7.5s", "yolo");
+	printf("%09s", "hi low");
 	printf("------\n");
-	ft_printf("%7.5s", "yolo");
+	ft_printf("%09s", "hi low");
 	printf("------\n");
 /*	printf("yesmine %*dbesbes %xyyyy%X\n",3, 5, -15, -200);
 	ft_printf("yesmine %*dbesbes %xyyyy%X\n",3, 5, -15, -200);

@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 10:46:11 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/15 20:38:31 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/16 17:19:17 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char    *get_flags(const char *format, int *i);
 
 t_flags	ft_parse(const char *format, int *i);
 
+char	*read_length_and_flags(t_flags flags, char *origine, int star_width, int is_neg);
 int		ft_read_star_parameter(char *flags, va_list list);
 char	*read_specifier(t_flags flags, va_list list);
 void	ft_free_struct(t_flags flags);
