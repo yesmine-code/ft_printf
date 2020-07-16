@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 20:03:30 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/15 20:01:10 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/16 11:45:25 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_flags	ft_parse(const char *format, int *i)
 	if (format[*i] == '.')
 	{
 		*i = *i + 1;
-		f.precision = get_width(format, i);
+		f.precision = ft_strjoin(".", get_width(format, i));
 	}
 	else
 		f.precision = ft_strdup("");
