@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:10:29 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/16 17:36:40 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/16 21:38:50 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ char	*read_length_and_flags(t_flags flags, char *origine, int star_width, int is
 		else	
 			result = ft_format(origine, 1, star_width, '0');
 	}
-	else if (ft_strlen(flags.flags) == 0)
-		result = ft_format(origine, 1, star_width, ' ');
 	else
-		result = ft_strdup(origine);
+		result = ft_format(origine, 1, star_width, ' ');
 	return (result);
 }
