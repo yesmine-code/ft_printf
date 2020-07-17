@@ -6,24 +6,29 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:00:51 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/16 23:06:50 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/17 11:45:45 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_read_star_parameter(char *flags, va_list list)
+int		ft_read_star_parameter(t_flags *flags, char *str, va_list list)
 {
 	int i;
 	int star_arg;
 
 	i = 0;
 	star_arg = -1;
-	while (flags[i] != '\0')
+	while (str[i] != '\0')
 	{
-		if (flags[i] == '*')
+		if (str[i] == '*')
 		{
 			star_arg = va_arg(list, int);
+			if (star_arg < 0)
+			{
+				flags->flags = ft_strjoin("-", flags->flags);
+				star_arg = -star_arg;
+			}
 			break ;
 		}
 		i++;

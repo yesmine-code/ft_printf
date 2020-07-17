@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:23:41 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/16 23:37:54 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/17 11:43:44 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int		ft_parse_read_and_put(const char *format,
 	*flags = ft_parse(format, i);
 	if (flags->specifier != 0)
 	{
-		star_width_arg = ft_read_star_parameter(flags->width, list);
-		star_precision_arg = ft_read_star_parameter(flags->precision, list);
+		star_width_arg = ft_read_star_parameter(flags, flags->width, list);
+		star_precision_arg = ft_read_star_parameter(flags, flags->precision, list);
 		specifier = read_specifier(*flags, list);
 		if (specifier != NULL)
 		{
