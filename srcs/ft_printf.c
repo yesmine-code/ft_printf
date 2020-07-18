@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 22:35:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/16 11:13:23 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/18 11:38:05 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_init(int *i, int *compteur, t_flags *flags)
 	flags->precision = NULL;
 	flags->length = NULL;
 	flags->specifier = 0;
+	flags->specifier = 0x01;
 }
 
 int		calcul_compteur(int ret, int compteur)

@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:00:51 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/17 11:45:45 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/18 11:49:04 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,37 +49,38 @@ char	*ft_p_specifier(va_list list)
 	return (tmp_specifier);
 }
 
-char	*ft_c_specifier(va_list list)
+char	*ft_c_specifier(t_flags *flags, va_list list)
 {
 	char	*tmp_specifier;
 
 	tmp_specifier = malloc(sizeof(char) * 2);
-	tmp_specifier[0] = va_arg(list, int);
+	flags->c_origine = va_arg(list, int);
+	tmp_specifier[0] = flags->c_origine;
 	tmp_specifier[1] = '\0';
 	return (tmp_specifier);
 }
 
-char	*read_specifier(t_flags flags, va_list list)
+char	*read_specifier(t_flags *flags, va_list list)
 {
 	char	*s;
 
-	if (flags.specifier == 'd' || flags.specifier == 'i')
+	if (flags->specifier == 'd' || flags->specifier == 'i')
 		return (ft_itoa(va_arg(list, int), "0123456789"));
-	if (flags.specifier == 'u')
+	if (flags->specifier == 'u')
 		return (ft_itoa(va_arg(list, unsigned int), "0123456789"));
-	if (flags.specifier == 'x')
+	if (flags->specifier == 'x')
 		return (ft_itoa(va_arg(list, unsigned int), "0123456789abcdef"));
-	if (flags.specifier == 'X')
+	if (flags->specifier == 'X')
 		return (ft_itoa(va_arg(list, unsigned int), "0123456789ABCDEF"));
-	if (flags.specifier == 'o')
+	if (flags->specifier == 'o')
 		return (ft_itoa(va_arg(list, unsigned int), "01234567"));
-	if (flags.specifier == 'p')
+	if (flags->specifier == 'p')
 		return (ft_p_specifier(list));
-	if (flags.specifier == 'c')
-		return (ft_c_specifier(list));
-	if (flags.specifier == 's')
+	if (flags->specifier == 'c')
+		return (ft_c_specifier(flags, list));
+	if (flags->specifier == 's')
 		return (ft_strdup((s = va_arg(list, char *)) ? s : "(null)"));
-	if (flags.specifier == '%')
+	if (flags->specifier == '%')
 		return (ft_strdup("%"));
 	return (ft_strdup(""));
 }

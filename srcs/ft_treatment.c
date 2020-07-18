@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:23:41 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/17 11:43:44 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/18 11:47:57 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,22 @@ int		ft_read_precision_length_and_flag(t_flags *flags,
 	compteur = 0;
 	result = read_length_and_flags(*flags, precision, star_width_arg, is_neg);
 	free(precision);
-	if (result != NULL)
+	if(flags->specifier == 'c' && flags->c_origine == '\0')
+	{
+		if(!ft_strchr(flags->flags, '-'))
+		{
+			ft_putstr(result);
+			write(1, "\0", 1);
+		}
+		else
+		{
+			write(1, "\0", 1);
+			ft_putstr(result);
+		}
+		compteur += ft_strlen(result) + 1;
+		return (compteur);
+	}
+	else if (result != NULL)
 	{
 		ft_putstr(result);
 		compteur += ft_strlen(result);
@@ -75,7 +90,7 @@ int		ft_parse_read_and_put(const char *format,
 	{
 		star_width_arg = ft_read_star_parameter(flags, flags->width, list);
 		star_precision_arg = ft_read_star_parameter(flags, flags->precision, list);
-		specifier = read_specifier(*flags, list);
+		specifier = read_specifier(flags, list);
 		if (specifier != NULL)
 		{
 			is_neg = (specifier[0] == '-' && ft_strchr("di", flags->specifier) &&

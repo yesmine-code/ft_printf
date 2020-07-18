@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 10:46:11 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/17 11:34:17 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/18 11:49:33 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_flags
 	char *precision;
 	char *length;
 	char specifier;
+	char c_origine;
 }				t_flags;
 
 void			ft_putstr(char *s);
@@ -45,7 +46,7 @@ char			*get_width(const char *format, int *i);
 char			*get_flags(const char *format, int *i);
 t_flags			ft_parse(const char *format, int *i);
 int				ft_read_star_parameter(t_flags *flags, char *str, va_list list);
-char			*read_specifier(t_flags flags, va_list list);
+char			*read_specifier(t_flags *flags, va_list list);
 char			*read_precision(t_flags flags, char *origine, int star_value, int is_neg);
 char			*read_length_and_flags(t_flags flags,
 		char *origine, int star_width, int is_neg);

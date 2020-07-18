@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:10:29 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/17 11:14:22 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/18 11:28:54 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ char	*read_length_and_flags(t_flags flags, char *origine, int star_width, int is
 
 	if (star_width == -1)
 		star_width = ft_atoi(flags.width);
+	if(flags.specifier == 'c' && flags.c_origine == '\0')
+		star_width--;
+
 	if (ft_strchr(flags.flags, '-'))
 	{
 		if(flags.specifier == 'p' && ft_strlen(flags.precision) < 1)
