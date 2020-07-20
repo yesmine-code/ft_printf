@@ -2,25 +2,10 @@
 
 int main()
 {
-	int a;
-	int *ptr;
-				
-	a = 10;
-	printf("%*s", 35, "abc");
-	printf("------\n");
-	ft_printf("%*s", 35, "abc");
-	printf("------\n");
-	printf("%*s", -35, "abc");
-	printf("------\n");
-	ft_printf("%*s", -35, "abc");
-/*	printf("yesmine %*dbesbes %xyyyy%X\n",3, 5, -15, -200);
-	ft_printf("yesmine %*dbesbes %xyyyy%X\n",3, 5, -15, -200);
-	printf("------\n");
-	int length1 = printf("%*d.\n", 10, 250);
-	int length2 = ft_printf("%*d.\n", 10, 250);
-	printf("length 1 = %d\t, length 2 = %d\n", length1, length2);
-	length1 = printf("%010d\t -%10s-\t -%-10s-\n", 23, "medos", "medos");
-	length2 = ft_printf("%010d\t -%10s-\t -%-10s-\n", 23, "medos", "medos");
-	printf("length 1 = %d\t, length 2 = %d\n", length1, length2);*/
+	int l1 = printf("%-10");
+	printf("---------------");
+	int l2 = ft_printf("%-10");
+	printf("---------------");
+	printf("\n l1 = %d, l2 = %d\n", l1, l2);
 	return 0;
 }

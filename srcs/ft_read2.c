@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:10:29 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/18 11:28:54 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/20 21:23:56 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*read_precision(t_flags flags, char *origine, int star_value, int is_neg)
 	{
 		if (ft_strchr("diuoxXp%", flags.specifier))
 		{
-			if(width == 0 && ft_strlen(origine) == 1 && origine[0] == '0')//use memcmp !!!!!!!!!!!!!
+			if(width == 0 && ft_strlen(origine) == 1 && origine[0] == '0')
 			{
 				free(origine);
 				origine = ft_strdup("");

@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:00:51 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/18 11:49:04 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/20 21:27:38 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@ int		ft_read_star_parameter(t_flags *flags, char *str, va_list list)
 		if (str[i] == '*')
 		{
 			star_arg = va_arg(list, int);
-			if (star_arg < 0)
+			if (star_arg < 0 && ft_strchr("si", flags->specifier) && ft_strchr(str, '.'))
+			{
+				free(flags->precision);
+				flags->precision = ft_strdup("");
+				star_arg = -1;
+			}
+			else if (star_arg < 0)
 			{
 				flags->flags = ft_strjoin("-", flags->flags);
 				star_arg = -star_arg;
@@ -39,13 +45,10 @@ int		ft_read_star_parameter(t_flags *flags, char *str, va_list list)
 char	*ft_p_specifier(va_list list)
 {
 	char	*tmp_specifier;
-//	char	*tmp_specifier2;
 	int		*ptr;
 
 	ptr = va_arg(list, void *);
 	tmp_specifier = (ptr != NULL) ? ft_itoa((long long)ptr, "0123456789abcdef") : ft_strdup("0");
-//	tmp_specifier2 = ft_strjoin("0x", tmp_specifier);
-//	free(tmp_specifier);
 	return (tmp_specifier);
 }
 
@@ -82,5 +85,5 @@ char	*read_specifier(t_flags *flags, va_list list)
 		return (ft_strdup((s = va_arg(list, char *)) ? s : "(null)"));
 	if (flags->specifier == '%')
 		return (ft_strdup("%"));
-	return (ft_strdup(""));
+	return (NULL);
 }
