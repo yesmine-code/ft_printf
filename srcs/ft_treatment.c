@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:23:41 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/20 21:27:17 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/22 13:02:41 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ char	*ft_format(char *origine, int align, int width, char flag)
 	return (result);
 }
 
+int		ft_case_of_null_result(char **result, int compteur)
+{
+	ft_putstr(*result);
+	compteur += ft_strlen(*result);
+	free(*result);
+	return (compteur);
+}
+
 int		ft_read_precision_length_and_flag(t_flags *flags,
 		char *precision, int is_neg, int star_width_arg)
 {
@@ -50,9 +58,9 @@ int		ft_read_precision_length_and_flag(t_flags *flags,
 	compteur = 0;
 	result = read_length_and_flags(*flags, precision, star_width_arg, is_neg);
 	free(precision);
-	if(flags->specifier == 'c' && flags->c_origine == '\0')
+	if (flags->specifier == 'c' && flags->c_origine == '\0')
 	{
-		if(!ft_strchr(flags->flags, '-'))
+		if (!ft_strchr(flags->flags, '-'))
 		{
 			ft_putstr(result);
 			write(1, "\0", 1);
@@ -66,12 +74,7 @@ int		ft_read_precision_length_and_flag(t_flags *flags,
 		return (compteur);
 	}
 	else if (result != NULL)
-	{
-		ft_putstr(result);
-		compteur += ft_strlen(result);
-		free(result);
-		return (compteur);
-	}
+		return (ft_case_of_null_result(&result, compteur));
 	else
 		return (-1);
 }
@@ -94,7 +97,7 @@ int		ft_parse_read_and_put(const char *format,
 		if (specifier != NULL)
 		{
 			is_neg = (specifier[0] == '-' && ft_strchr("di", flags->specifier) &&
-					(ft_strlen(flags->precision) > 1 ||(!ft_strchr(flags->flags, '-') &&
+					(ft_strlen(flags->precision) > 1 || (!ft_strchr(flags->flags, '-') &&
 					ft_strchr(flags->flags, '0')))) ? 1 : 0;
 			precision = read_precision(*flags, specifier, star_precision_arg, is_neg);
 			free(specifier);
