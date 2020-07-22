@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 10:46:11 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/16 17:18:13 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/22 12:36:34 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char    *ft_strchr(char const *s, int c);
 int		ft_count(int n);
 char	*ft_itoa(int n);
 
+char	*ft_free(char *str);
 
 
 

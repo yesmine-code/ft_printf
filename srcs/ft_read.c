@@ -6,28 +6,34 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:00:51 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/20 21:27:38 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/22 12:35:22 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+char	*ft_free(char *str)
+{
+	free(str);
+	return(ft_strdup(""));
+}
 
 int		ft_read_star_parameter(t_flags *flags, char *str, va_list list)
 {
 	int i;
 	int star_arg;
 
-	i = 0;
+	i = -1;
 	star_arg = -1;
-	while (str[i] != '\0')
+	while (str[++i] != '\0')
 	{
 		if (str[i] == '*')
 		{
 			star_arg = va_arg(list, int);
-			if (star_arg < 0 && ft_strchr("si", flags->specifier) && ft_strchr(str, '.'))
+			if (star_arg < 0 && ft_strchr("si", flags->specifier) &&
+					ft_strchr(str, '.'))
 			{
-				free(flags->precision);
-				flags->precision = ft_strdup("");
+				flags->precision = ft_free(flags->precision);
 				star_arg = -1;
 			}
 			else if (star_arg < 0)
@@ -37,7 +43,6 @@ int		ft_read_star_parameter(t_flags *flags, char *str, va_list list)
 			}
 			break ;
 		}
-		i++;
 	}
 	return (star_arg);
 }
@@ -48,7 +53,8 @@ char	*ft_p_specifier(va_list list)
 	int		*ptr;
 
 	ptr = va_arg(list, void *);
-	tmp_specifier = (ptr != NULL) ? ft_itoa((long long)ptr, "0123456789abcdef") : ft_strdup("0");
+	tmp_specifier = (ptr != NULL) ?
+		ft_itoa((long long)ptr, "0123456789abcdef") : ft_strdup("0");
 	return (tmp_specifier);
 }
 
