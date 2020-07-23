@@ -6,40 +6,11 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:23:41 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/22 13:02:41 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/23 21:16:54 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-char	*ft_format(char *origine, int align, int width, char flag)
-{
-	char	*result;
-	char	*tmp;
-	int		i;
-	int		j;
-
-	i = 0;
-	result = NULL;
-	if (ft_strlen(origine) < width)
-	{
-		j = width - ft_strlen(origine);
-		if ((tmp = malloc(sizeof(char) * (j + 1))))
-		{
-			while (i < j)
-				tmp[i++] = flag;
-			tmp[i] = '\0';
-			if (align == 1)
-				result = ft_strjoin(tmp, origine);
-			else
-				result = ft_strjoin(origine, tmp);
-			free(tmp);
-		}
-	}
-	else
-		result = ft_strdup(origine);
-	return (result);
-}
 
 int		ft_case_of_null_result(char **result, int compteur)
 {
@@ -79,6 +50,27 @@ int		ft_read_precision_length_and_flag(t_flags *flags,
 		return (-1);
 }
 
+char	*ft_init_specifier(t_flags *flags, va_list list,
+		int *star_width_arg, int *star_precision_arg)
+{
+	*star_width_arg = ft_read_star_parameter(flags, flags->width, list);
+	*star_precision_arg = ft_read_star_parameter(flags, flags->precision, list);
+	return (read_specifier(flags, list));
+}
+
+char	*calcul_precision(t_flags *flags, char *specifier,
+		int star_precision_arg, int *is_neg)
+{
+	char	*precision;
+
+	*is_neg = (specifier[0] == '-' && ft_strchr("di", flags->specifier) &&
+	(ft_strlen(flags->precision) > 1 || (!ft_strchr(flags->flags, '-') &&
+	ft_strchr(flags->flags, '0')))) ? 1 : 0;
+	precision = read_precision(*flags, specifier, star_precision_arg, *is_neg);
+	free(specifier);
+	return (precision);
+}
+
 int		ft_parse_read_and_put(const char *format,
 		t_flags *flags, int *i, va_list list)
 {
@@ -91,22 +83,15 @@ int		ft_parse_read_and_put(const char *format,
 	*flags = ft_parse(format, i);
 	if (flags->specifier != 0)
 	{
-		star_width_arg = ft_read_star_parameter(flags, flags->width, list);
-		star_precision_arg = ft_read_star_parameter(flags, flags->precision, list);
-		specifier = read_specifier(flags, list);
+		specifier = ft_init_specifier(flags, list,
+					&star_width_arg, &star_precision_arg);
 		if (specifier != NULL)
 		{
-			is_neg = (specifier[0] == '-' && ft_strchr("di", flags->specifier) &&
-					(ft_strlen(flags->precision) > 1 || (!ft_strchr(flags->flags, '-') &&
-					ft_strchr(flags->flags, '0')))) ? 1 : 0;
-			precision = read_precision(*flags, specifier, star_precision_arg, is_neg);
-			free(specifier);
-			if (precision != NULL)
-			{
-				*i = *i + 1;
+			precision = calcul_precision(flags, specifier,
+					star_precision_arg, &is_neg);
+			if (precision != NULL && (*i = *i + 1))
 				return (ft_read_precision_length_and_flag(flags, precision,
 								is_neg, star_width_arg));
-			}
 		}
 	}
 	else
