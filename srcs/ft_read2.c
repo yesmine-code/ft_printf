@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:10:29 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/23 21:10:56 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/23 21:44:16 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ char	*read_precision_case(t_flags flags, char **origine,
 		if (is_neg == 1)
 			result = ft_strjoin("-", ft_strjoin(hex,
 						ft_format(*origine + 1, 1, width, '0')));
+		else if (flags.specifier == 'p' && ft_strlen(*origine) == 1 &&
+				*origine[0] == '0' && ft_strchr(flags.flags, '-'))
+			result = ft_strdup("0x0");
 		else
 			result = ft_strjoin(hex, ft_format(*origine, 1, width, '0'));
 	}
