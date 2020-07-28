@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:38:36 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/16 16:04:12 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/28 19:57:04 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_strchr(const char *s, int c)
 	i = ft_strlen(s);
 	if ((char)c == '\0')
 		return ((char *)s + ft_strlen(s));
-	while (i >= 0)
+	while (i > 0)
 	{
 		if (s[i - 1] == c)
 			return ((char *)s + (i - 1));

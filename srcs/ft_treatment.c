@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:23:41 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/23 21:16:54 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/28 20:05:30 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	*calcul_precision(t_flags *flags, char *specifier,
 	(ft_strlen(flags->precision) > 1 || (!ft_strchr(flags->flags, '-') &&
 	ft_strchr(flags->flags, '0')))) ? 1 : 0;
 	precision = read_precision(*flags, specifier, star_precision_arg, *is_neg);
-	free(specifier);
 	return (precision);
 }
 
@@ -89,6 +88,7 @@ int		ft_parse_read_and_put(const char *format,
 		{
 			precision = calcul_precision(flags, specifier,
 					star_precision_arg, &is_neg);
+			free(specifier);
 			if (precision != NULL && (*i = *i + 1))
 				return (ft_read_precision_length_and_flag(flags, precision,
 								is_neg, star_width_arg));

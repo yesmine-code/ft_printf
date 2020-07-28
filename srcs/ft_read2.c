@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char	*read_precision_case(t_flags flags, char **origine,
+char	*read_precision_case(t_flags flags, char *origine,
 		int width, int is_neg)
 {
 	char	*hex;
@@ -21,21 +21,21 @@ char	*read_precision_case(t_flags flags, char **origine,
 	result = NULL;
 	if (ft_strchr("diuoxXp%", flags.specifier))
 	{
-		if (width == 0 && ft_strlen(*origine) == 1 && *origine[0] == '0')
-			*origine = ft_free(*origine);
+		if (width == 0 && ft_strlen(origine) == 1 && origine[0] == '0')
+			origine = ft_strdup("");
 		hex = (flags.specifier == 'p') ? ft_strdup("0x") : ft_strdup("");
 		if (is_neg == 1)
 			result = ft_strjoin("-", ft_strjoin(hex,
-						ft_format(*origine + 1, 1, width, '0')));
+						ft_format(origine + 1, 1, width, '0')));
 		else
-			result = ft_strjoin(hex, ft_format(*origine, 1, width, '0'));
+			result = ft_strjoin(hex, ft_format(origine, 1, width, '0'));
 	}
 	else if (ft_strchr("s", flags.specifier))
 	{
-		if (width < ft_strlen(*origine))
-			result = ft_substr(*origine, 0, width);
+		if (width < ft_strlen(origine))
+			result = ft_substr(origine, 0, width);
 		else
-			result = ft_strdup(*origine);
+			result = ft_strdup(origine);
 	}
 	return (result);
 }
@@ -60,7 +60,7 @@ char	*read_precision(t_flags flags, char *origine,
 			origine[0] == '0' && ft_strchr(flags.flags, '-'))
 		width = 1;
 	if (width >= 0)
-		result = read_precision_case(flags, &origine, width, is_neg);
+		result = read_precision_case(flags, origine, width, is_neg);
 	else if (width == -1)
 		result = ft_strdup(origine);
 	else if (width == -2 && flags.specifier == 'p')
