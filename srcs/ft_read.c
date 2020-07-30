@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:00:51 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/23 21:22:42 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/30 21:14:52 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ char	*ft_free(char *str)
 
 int		ft_read_star_parameter(t_flags *flags, char *str, va_list list, int negative)
 {
-	int i;
-	int star_arg;
+	int 	i;
+	int 	star_arg;
+	char	*tmp;
 
 	i = -1;
 	star_arg = -1;
@@ -38,7 +39,12 @@ int		ft_read_star_parameter(t_flags *flags, char *str, va_list list, int negativ
 			}
 			else if (star_arg < 0)
 			{
-				flags->flags = ft_strjoin("-", flags->flags);
+				if (negative == 1)
+				{
+					tmp = flags->flags;
+					flags->flags = ft_strjoin("-", flags->flags);
+					free(tmp);
+				}
 				star_arg = -star_arg * negative;
 			}
 			break ;
