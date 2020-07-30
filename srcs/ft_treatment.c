@@ -53,8 +53,8 @@ int		ft_read_precision_length_and_flag(t_flags *flags,
 char	*ft_init_specifier(t_flags *flags, va_list list,
 		int *star_width_arg, int *star_precision_arg)
 {
-	*star_width_arg = ft_read_star_parameter(flags, flags->width, list);
-	*star_precision_arg = ft_read_star_parameter(flags, flags->precision, list);
+	*star_width_arg = ft_read_star_parameter(flags, flags->width, list, 1);
+	*star_precision_arg = ft_read_star_parameter(flags, flags->precision, list, 0);
 	return (read_specifier(flags, list));
 }
 

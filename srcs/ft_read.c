@@ -18,7 +18,7 @@ char	*ft_free(char *str)
 	return (ft_strdup(""));
 }
 
-int		ft_read_star_parameter(t_flags *flags, char *str, va_list list)
+int		ft_read_star_parameter(t_flags *flags, char *str, va_list list, int negative)
 {
 	int i;
 	int star_arg;
@@ -39,7 +39,7 @@ int		ft_read_star_parameter(t_flags *flags, char *str, va_list list)
 			else if (star_arg < 0)
 			{
 				flags->flags = ft_strjoin("-", flags->flags);
-				star_arg = -star_arg;
+				star_arg = -star_arg * negative;
 			}
 			break ;
 		}

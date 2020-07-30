@@ -45,7 +45,7 @@ char			*get_length(const char *format, int *i);
 char			*get_width(const char *format, int *i);
 char			*get_flags(const char *format, int *i);
 t_flags			ft_parse(const char *format, int *i);
-int				ft_read_star_parameter(t_flags *flags, char *str, va_list list);
+int				ft_read_star_parameter(t_flags *flags, char *str, va_list list, int negative);
 char			*read_specifier(t_flags *flags, va_list list);
 char			*ft_free(char *str);
 char			*read_precision(t_flags flags, char *origine,
