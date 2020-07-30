@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:10:29 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/23 22:27:34 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/30 21:45:33 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*read_precision(t_flags flags, char *origine,
 		width = -2;
 	else
 		width = -1;
-	if (width > 1 && flags.specifier == 'p' && ft_strlen(origine) == 1 &&
+	if (width > 1 && flags.specifier == 'p' && //ft_strlen(origine) == 1 &&
 			origine[0] == '0' && ft_strchr(flags.flags, '-'))
 		width = 1;
 	if (width >= 0)
@@ -93,7 +93,7 @@ char	*read_length_and_flags(t_flags flags, char *origine,
 		star_width--;
 	if (ft_strchr(flags.flags, '-'))
 		result = ft_case_of_p(flags, origine, star_width);
-	else if (ft_strchr(flags.flags, '0') && ft_strlen(flags.precision) <= 1 &&
+	else if (ft_strchr(flags.flags, '0') && ft_atoi(flags.precision + 1) <= 0  &&
 			ft_strchr("sdiuoxX%", flags.specifier))
 	{
 		if (is_neg == 1)
