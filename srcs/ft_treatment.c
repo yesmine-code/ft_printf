@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:23:41 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/31 20:25:20 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/31 21:03:26 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ char	*ft_init_specifier(t_flags *flags, va_list list,
 		int *star_width_arg, int *star_precision_arg)
 {
 	*star_width_arg = ft_read_star_parameter(flags, flags->width, list, 1);
-	*star_precision_arg = ft_read_star_parameter(flags, flags->precision, list, 0);
+	*star_precision_arg = ft_read_star_parameter(flags, flags->precision,
+		list, 0);
 	return (read_specifier(flags, list));
 }
 

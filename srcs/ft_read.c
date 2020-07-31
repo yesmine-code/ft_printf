@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:00:51 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/31 20:56:44 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/31 21:06:21 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ char	*ft_free(char *str)
 	return (ft_strdup(""));
 }
 
-int		ft_read_star_parameter(t_flags *flags, char *str, va_list list, int negative)
+int		ft_read_star_parameter(t_flags *flags, char *str,
+		va_list list, int negative)
 {
-	int 	i;
-	int 	star_arg;
+	int		i;
+	int		star_arg;
 	char	*tmp;
 
 	i = -1;
