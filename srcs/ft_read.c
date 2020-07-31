@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:00:51 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/31 20:34:01 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/31 20:56:44 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,15 @@ int		ft_read_star_parameter(t_flags *flags, char *str, va_list list, int negativ
 					tmp = flags->flags;
 					flags->flags = ft_strjoin("-", flags->flags);
 					free(tmp);
+					star_arg = -star_arg;
 				}
 				else
 				{
 					tmp = flags->precision;
-					flags->precision = ft_strdup(".");
+					flags->precision = ft_strdup("");
 					free(tmp);
+					star_arg = -1;
 				}
-				star_arg = -star_arg * negative;
 			}
 			break ;
 		}
