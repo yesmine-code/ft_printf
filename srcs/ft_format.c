@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 21:11:32 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/23 21:16:03 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/08/01 10:46:17 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,10 @@ char	*ft_format(char *origine, int align, int width, char flag)
 	else
 		result = ft_strdup(origine);
 	return (result);
+}
+
+char	*ft_free(char *str)
+{
+	free(str);
+	return (ft_strdup(""));
 }

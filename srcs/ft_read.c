@@ -6,16 +6,31 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 13:00:51 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/31 21:06:21 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/08/01 10:56:02 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_free(char *str)
+int		ft_case_of_negative_star_arg(t_flags *flags, int star_arg, int negative)
 {
-	free(str);
-	return (ft_strdup(""));
+	char	*tmp;
+
+	if (negative == 1)
+	{
+		tmp = flags->flags;
+		flags->flags = ft_strjoin("-", flags->flags);
+		free(tmp);
+		star_arg = -star_arg;
+	}
+	else
+	{
+		tmp = flags->precision;
+		flags->precision = ft_strdup("");
+		free(tmp);
+		star_arg = -1;
+	}
+	return (star_arg);
 }
 
 int		ft_read_star_parameter(t_flags *flags, char *str,
@@ -23,7 +38,6 @@ int		ft_read_star_parameter(t_flags *flags, char *str,
 {
 	int		i;
 	int		star_arg;
-	char	*tmp;
 
 	i = -1;
 	star_arg = -1;
@@ -40,20 +54,8 @@ int		ft_read_star_parameter(t_flags *flags, char *str,
 			}
 			else if (star_arg < 0)
 			{
-				if (negative == 1)
-				{
-					tmp = flags->flags;
-					flags->flags = ft_strjoin("-", flags->flags);
-					free(tmp);
-					star_arg = -star_arg;
-				}
-				else
-				{
-					tmp = flags->precision;
-					flags->precision = ft_strdup("");
-					free(tmp);
-					star_arg = -1;
-				}
+				star_arg = ft_case_of_negative_star_arg(flags,
+						star_arg, negative);
 			}
 			break ;
 		}
